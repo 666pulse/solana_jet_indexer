@@ -1,0 +1,19 @@
+version: '2'
+
+services:
+  jet:
+    build: ../..
+    volumes:
+      - ~/indexer.data:/app/data:rw
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    env_file:
+      - ../../.env
+      - ./.env
+    environment:
+      - INDEXER=jet
+      - LETSENCRYPT_HOST=jet.api.aleph.cloud
+      - VIRTUAL_HOST=jet.api.aleph.cloud
+      - VIRTUAL_PORT=8080
+      - SOLANA_RPC=
+    network_mode: bridge
