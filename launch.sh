@@ -1,0 +1,1 @@
+node dist/run.js
