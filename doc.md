@@ -1,3 +1,15 @@
+## solana rpc
+
+https://api.mainnet-beta.solana.com
+
+https://api.devnet.solana.com
+
+http://localhost:8899
+
+https://helius.xyz/
+
+https://solana.com/docs/core/clusters
+
 ## generate jetv1 indexer
 
 `jetv1: JPv1rCqrhagNNmJVM5J1he7msQ5ybtvE1nNuHpDHMNU`
