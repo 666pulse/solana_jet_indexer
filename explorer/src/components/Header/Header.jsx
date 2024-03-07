@@ -34,6 +34,11 @@ export default function MainHeader() {
             minWidth: 0,
           }}
         />
+
+      <a href="/account">
+        account
+      </a>
+
       </Header>
   );
 }
