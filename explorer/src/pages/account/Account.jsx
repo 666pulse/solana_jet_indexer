@@ -1,88 +1,75 @@
 import React from "react";
-import { Space, Table, Tag, Layout } from 'antd';
-import "./account.css"
+import { useState, useEffect } from 'react';
+import { Space, Table } from 'antd';
+import axios, {isCancel, AxiosError} from 'axios';
 
-const Account = () => {
-  console.log(/Account/);
+import "./account.css";
+
+const getAccounts = async () => {
+  const BASE_URL = "http://localhost:8080"
+
+  const headers = {
+    "content-type": "application/json",
+  };
+
+  const graphqlQuery = {
+    // "operationName": "",
+    "query": `query {accounts { name type address programId }}`,
+    "variables": {},
+  };
+
+  const resp = await axios({
+    url: BASE_URL,
+    method: 'post',
+    headers: headers,
+    data: graphqlQuery
+  });
+
+  const res = resp["data"]["data"]["accounts"]
+  return res
+}
+
+export default function Account() {
+  console.log(/Account/)
+
+  const [accounts, setAccounts] = useState([])
+
+  useEffect(() => {
+    getAccounts().then((resp)=>{
+      setAccounts(resp)
+    })
+  },[]);
 
   const columns = [
     {
       title: 'Name',
       dataIndex: 'name',
       key: 'name',
-      render: (text) => <a>{text}</a>,
+      render: (text) => <a>{text.slice(0, 5)}</a>,
     },
     {
-      title: 'Age',
-      dataIndex: 'age',
-      key: 'age',
+      title: 'Type',
+      dataIndex: 'type',
+      key: 'type',
     },
     {
-      title: 'Address',
+      title: 'Addr',
       dataIndex: 'address',
-      key: 'address',
-    },
-    {
-      title: 'Tags',
-      key: 'tags',
-      dataIndex: 'tags',
-      render: (_, { tags }) => (
-        <>
-          {tags.map((tag) => {
-            let color = tag.length > 5 ? 'geekblue' : 'green';
-            if (tag === 'loser') {
-              color = 'volcano';
-            }
-            return (
-              <Tag color={color} key={tag}>
-                {tag.toUpperCase()}
-              </Tag>
-            );
-          })}
-        </>
-      ),
     },
     {
       title: 'Action',
       key: 'action',
       render: (_, record) => (
         <Space size="middle">
-          <a>Invite {record.name}</a>
-          <a>Delete</a>
+          <a>View {record.name.slice(0,5)}</a>
         </Space>
       ),
     },
   ];
 
-  const data = [
-    {
-      key: '1',
-      name: 'John Brown',
-      age: 32,
-      address: 'New York No. 1 Lake Park',
-      tags: ['nice', 'developer'],
-    },
-    {
-      key: '2',
-      name: 'Jim Green',
-      age: 42,
-      address: 'London No. 1 Lake Park',
-      tags: ['loser'],
-    },
-    {
-      key: '3',
-      name: 'Joe Black',
-      age: 32,
-      address: 'Sydney No. 1 Lake Park',
-      tags: ['cool', 'teacher'],
-    },
-  ];
-
   return (
     <>
-    <Table columns={columns} dataSource={data} />
+    <Table columns={columns} dataSource={accounts} />
     </>
   )
 }
-
-export default Account
