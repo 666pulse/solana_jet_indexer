@@ -12,17 +12,17 @@ import Account from './pages/account/Account';
 function App(props) {
   return (
     <Router>
-      <Routes>
-        <Route path="/account" element={Account}></Route>
-        </Routes>
-
       <Layout>
         <MainHeader />
-          {props.children}
+        <Routes>
+          <Route path="/account" element={<Account />}></Route>
+        </Routes>
+
+        {props.children}
+
         <MainFooter />
       </Layout>
     </Router>
-
   );
 }
 
