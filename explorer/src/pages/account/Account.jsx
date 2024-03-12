@@ -42,6 +42,14 @@ export default function Account() {
 
   const columns = [
     {
+      title: 'ID',
+      dataIndex: 'id',
+      key: 'id',
+      width: '5%',
+      sorter: (a, b) => a.id - b.id,
+      render: (id, record, index) => { ++index; return index; },
+    },
+    {
       title: 'Name',
       dataIndex: 'name',
       key: 'name',
