@@ -1,14 +1,11 @@
-## solana rpc
+## get idl
 
-https://api.mainnet-beta.solana.com
+``` shell
+anchor idl fetch --provider.cluster mainnet JPv1rCqrhagNNmJVM5J1he7msQ5ybtvE1nNuHpDHMNU
 
-https://api.devnet.solana.com
-
-http://localhost:8899
-
-https://helius.xyz/
-
-https://solana.com/docs/core/clusters
+# Magic Eden
+anchor idl fetch --provider.cluster mainnet M2mx93ekt1fmXSVkTrUL9xVFHkmME8HTUi5Cyc5aF7K
+```
 
 ## generate jetv1 indexer
 
