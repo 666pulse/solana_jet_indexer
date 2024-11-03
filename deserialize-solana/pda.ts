@@ -1,6 +1,6 @@
 import * as anchor from "@coral-xyz/anchor";
 const { BN, Program, AnchorProvider } = anchor;
-import { Idl } from "@coral-xyz/anchor";
+import { Idl, BorshCoder } from "@coral-xyz/anchor";
 import { Connection, PublicKey } from "@solana/web3.js";
 import idl from "./idl/device_did.json" assert { type: "json" };
 
@@ -13,6 +13,8 @@ import idl from "./idl/device_did.json" assert { type: "json" };
 // }
 
 async function main() {
+  const borshCoder = new BorshCoder(idl as Idl);
+
   const devrpc =
     "";
   const conn = new Connection(devrpc);
@@ -41,6 +43,14 @@ async function main() {
 
   console.log(accountInfo);
 
+  const allPDAInfo = await program.account.did.all();
+  console.log(allPDAInfo);
+
+  let data = await conn.getAccountInfo(pdaAccount);
+  const decodedIx = borshCoder.instruction.decode("data", 'base58'); // decode("", 'hex');
+  console.log(decodedIx);
 }
 
 main();
+
+// https://blogs.shyft.to/how-to-parse-raw-transaction-in-solana-ed392e95e5dd
